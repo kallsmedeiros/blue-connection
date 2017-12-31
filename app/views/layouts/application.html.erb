@@ -26,16 +26,29 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
-
+  <style>
+   .menu {
+     background-color: rgba(60,60,60,0.5);
+     width: 60px; z-index: 99; position: fixed;
+   }
+  </style>
 </head>
 <body>
-  <div class="align-middle" align="left" style="background-color: rgba(60,60,60,0.5); width: 60px; height: 100%; z-index: 99; position: fixed; margin-top:0px">
+  <div id="navMenu" onmouseover="exibeMenu()" style="width: 60px; z-index: 99; position: fixed;">
+    <div class="align-middle" style="text-align:center !important; color: #00CED1;">
+      <i onclick="exibeMenu()" class="glyphicon glyphicon-globe" style="font-size: 30px; margin-top: 35%"></i>
+    </div>
+  </div>
+  <div id="menuTeste" class="menu" onmouseover="exibeMenu()" onmouseout="retornaMenu()" class="align-middle" align="left" style="height: 100%; margin-top:56px; display: none !important;">
     <div class="align-middle" style="text-align:center !important; color: #00CED1;">
       <%= link_to root_url do %>
         <i id="home" onclick="linkHome()" class="glyphicon glyphicon-home" style="font-size: 30px; margin-top: 35%"></i>
       <% end %>
       <%= link_to users_path do %>
         <i id="user" onclick="linkUsers()" class="glyphicon glyphicon-user" style="font-size: 30px; margin-top: 35%"></i>
+      <% end %><br>
+      <%= link_to login_logout_path do %>
+        <i class="fa fa-power-off" style="font-size: 30px; margin-top: 35%"></i><br>
       <% end %>
     </div>
   </div>
@@ -47,6 +60,7 @@
     <% end %>
 
     <%= yield %>
+
     <script>
       function linkHome() {
         window.location.href="/"
@@ -54,6 +68,17 @@
       function linkUsers() {
         window.location.href="/users"
       }
+
+      function exibeMenu() {
+        $('#menuTeste').show();
+        $('#navMenu').addClass("menu")
+      }
+
+      function retornaMenu() {
+        $('#menuTeste').hide();
+        $('#navMenu').removeClass("menu")
+      }
+
 
     </script>
   </body>
